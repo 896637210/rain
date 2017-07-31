@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://192.168.2.214/balls1.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>小球动画 Balls motion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #666;
+        }
+
+        .ball {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: fixed;
+            background: #39c;
+            /* transition: all .1s linear; */
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        function $(str) {
+            var obj = document.querySelectorAll(str);
+            return (obj.length == 1) ? obj[0] : obj;
+        }
+        // 产生 a ~ b 随机数
+        function rand(a, b) {
+            return Math.round(Math.random() * Math.abs(b - a) + Math.min(a, b));
+        }
+        var bw = window.innerWidth;
+        var bh = window.innerHeight;
+        function getInfo() {
+            bw = window.innerWidth;
+            bh = window.innerHeight;
+            // console.log(bw + "x" + bh);
+        }
+        window.onresize = function () {
+            getInfo();
+        };
+        var max = 100;
+        // var str = "";
+        // for (var i = 0; i < max; i++) {
+        //     str += '<div class="ball"></div>';
+        // }
+        // $('body').innerHTML += str;
+        $('body').innerHTML += (new Array(max + 1)).join('<div class="ball"></div>');
+        var objs = $('.ball');
+        console.log("objs =", objs);
+        var balls = [];
+        for (var i = 0; i < objs.length; i++) {
+            var r = rand(5, 30);
+            balls.push({
+                obj: objs[i],
+                d: r,
+                x: rand(0, bw - r),
+                y: rand(0, bh - r),
+                dx: rand(0, 1) ? 1 : -1,
+                dy: rand(0, 1) ? 1 : -1,
+                sx: rand(5, 20),
+                sy: rand(5, 20),
+                bg: 'rgba(' + rand(102, 255) + ', ' + rand(102, 255) + ', ' + rand(102, 255) + ', ' + (rand(30, 90) / 100) + ')'
+            });
+        }
+        console.log("balls =", balls);
+        function move() {
+            balls.map(function (el) {
+                el.x += el.dx * el.sx;
+                el.y += el.dy * el.sy;
+                if (el.x <= 0 || el.x >= bw - el.d) {
+                    el.dx = -el.dx;
+                }
+                if (el.y <= 0 || el.y >= bh - el.d) {
+                    el.dy = -el.dy;
+                }
+                var os = el.obj.style; // 精简代码
+                os.width = el.d + 'px';
+                os.height = el.d + 'px';
+                os.background = el.bg;
+                os.left = el.x + 'px';
+                os.top = el.y + 'px';
+            });
+            setTimeout(move, 50);
+        }
+        move();
+        // $ball.style.left = x + 'px';
+        // el.obj.style.left = el.x + 'px';
+        // var $ball = document.querySelector('.ball');
+        // var d = rand(5, 30);
+        // var x = rand(0, bw - d);
+        // var y = rand(0, bh - d);
+        // var dx = rand(0, 1) ? 1 : -1;
+        // var dy = rand(0, 1) ? 1 : -1;
+        // var sx = rand(5, 15);
+        // var sy = rand(5, 15);
+        // // var bg = 'rgba(' + rand(102, 255) + ', ' + rand(102, 255) + ', ' + rand(102, 255) + ', ' + (rand(45, 96) / 100) + ')';
+        // var bg = 'rgb(' + rand(102, 255) + ', ' + rand(102, 255) + ', ' + rand(102, 255) + ')';
+        // $ball.style.width = $ball.style.height = d + 'px';
+        // $ball.style.backgroundColor = bg;
+        // setInterval(function () {
+        //     x += dx * sx;
+        //     y += dy * sy;
+        //     if (x >= bw - d) {
+        //         dx = -1;
+        //     }
+        //     if (x <= 0) {
+        //         dx = 1;
+        //     }
+        //     if (y >= bh - d) {
+        //         dy = -1;
+        //     }
+        //     if (y <= 0) {
+        //         dy = 1;
+        //     }
+        //     $ball.style.left = x + 'px';
+        //     $ball.style.top = y + 'px';
+        //     $ball.style.width = $ball.style.height = d + 'px';
+        //     $ball.style.backgroundColor = bg;
+        // }, 120);
+    </script><div class="ball" style="width: 26px; height: 26px; background: rgba(165, 154, 166, 0.46); left: 849px; top: 430px;"></div><div class="ball" style="width: 29px; height: 29px; background: rgba(217, 129, 248, 0.57); left: 799px; top: 443px;"></div><div class="ball" style="width: 18px; height: 18px; background: rgba(192, 115, 131, 0.9); left: 26px; top: 466px;"></div><div class="ball" style="width: 18px; height: 18px; background: rgba(233, 208, 136, 0.6); left: 205px; top: 92px;"></div><div class="ball" style="width: 14px; height: 14px; background: rgba(226, 215, 185, 0.9); left: 325px; top: 139px;"></div><div class="ball" style="width: 25px; height: 25px; background: rgba(157, 158, 160, 0.5); left: 787px; top: 164px;"></div><div class="ball" style="width: 17px; height: 17px; background: rgba(126, 164, 251, 0.61); left: 288px; top: 208px;"></div><div class="ball" style="width: 15px; height: 15px; background: rgba(233, 230, 146, 0.66); left: 835px; top: 27px;"></div><div class="ball" style="width: 12px; height: 12px; background: rgba(198, 175, 254, 0.79); left: 421px; top: 96px;"></div><div class="ball" style="width: 27px; height: 27px; background: rgba(163, 112, 177, 0.77); left: 879px; top: 138px;"></div><div class="ball" style="width: 12px; height: 12px; background: rgba(114, 167, 130, 0.63); left: 30px; top: 285px;"></div><div class="ball" style="width: 23px; height: 23px; background: rgba(151, 222, 144, 0.3); left: 983px; top: 113px;"></div><div class="ball" style="width: 22px; height: 22px; background: rgba(134, 249, 172, 0.87); left: 464px; top: 342px;"></div><div class="ball" style="width: 17px; height: 17px; background: rgba(144, 221, 121, 0.49); left: 484px; top: 0px;"></div><div class="ball" style="width: 22px; height: 22px; background: rgba(214, 253, 175, 0.82); left: 488px; top: 338px;"></div><div class="ball" style="width: 6px; height: 6px; background: rgba(126, 243, 159, 0.36); left: 337px; top: 237px;"></div><div class="ball" style="width: 14px; height: 14px; background: rgba(153, 192, 167, 0.48); left: 457px; top: 290px;"></div><div class="ball" style="width: 8px; height: 8px; background: rgba(183, 204, 202, 0.67); left: 413px; top: 332px;"></div><div class="ball" style="width: 23px; height: 23px; background: rgba(183, 247, 149, 0.89); left: 899px; top: 161px;"></div><div class="ball" style="width: 18px; height: 18px; background: rgba(148, 189, 174, 0.41); left: 287px; top: 242px;"></div><div class="ball" style="width: 17px; height: 17px; background: rgba(150, 246, 115, 0.77); left: 98px; top: 174px;"></div><div class="ball" style="width: 30px; height: 30px; background: rgba(126, 182, 170, 0.79); left: 943px; top: 242px;"></div><div class="ball" style="width: 17px; height: 17px; background: rgba(155, 141, 228, 0.3); left: 118px; top: 14px;"></div><div class="ball" style="width: 6px; height: 6px; background: rgba(131, 166, 181, 0.34); left: 413px; top: 112px;"></div><div class="ball" style="width: 20px; height: 20px; background: rgba(180, 205, 249, 0.46); left: 691px; top: 198px;"></div><div class="ball" style="width: 12px; height: 12px; background: rgba(225, 186, 197, 0.61); left: 479px; top: 473px;"></div><div class="ball" style="width: 22px; height: 22px; background: rgba(148, 176, 231, 0.41); left: 276px; top: 226px;"></div><div class="ball" style="width: 26px; height: 26px; background: rgba(191, 255, 235, 0.51); left: 613px; top: -1px;"></div><div class="ball" style="width: 8px; height: 8px; background: rgba(229, 217, 165, 0.55); left: 40px; top: 479px;"></div><div class="ball" style="width: 17px; height: 17px; background: rgba(133, 149, 247, 0.73); left: 767px; top: 133px;"></div><div class="ball" style="width: 13px; height: 13px; background: rgba(115, 169, 112, 0.34); left: 261px; top: 294px;"></div><div class="ball" style="width: 26px; height: 26px; background: rgba(215, 116, 129, 0.64); left: 1000px; top: 381px;"></div><div class="ball" style="width: 6px; height: 6px; background: rgba(204, 162, 130, 0.86); left: 492px; top: 443px;"></div><div class="ball" style="width: 18px; height: 18px; background: rgba(208, 123, 181, 0.43); left: 45px; top: 255px;"></div><div class="ball" style="width: 19px; height: 19px; background: rgba(191, 117, 188, 0.31); left: 435px; top: 343px;"></div><div class="ball" style="width: 17px; height: 17px; background: rgba(146, 228, 106, 0.87); left: 600px; top: 136px;"></div><div class="ball" style="width: 7px; height: 7px; background: rgba(172, 126, 105, 0.47); left: 602px; top: 116px;"></div><div class="ball" style="width: 5px; height: 5px; background: rgba(187, 234, 165, 0.37); left: 601px; top: -8px;"></div><div class="ball" style="width: 27px; height: 27px; background: rgba(156, 170, 228, 0.81); left: 778px; top: 230px;"></div><div class="ball" style="width: 29px; height: 29px; background: rgba(204, 196, 215, 0.72); left: 629px; top: 225px;"></div><div class="ball" style="width: 29px; height: 29px; background: rgba(248, 235, 135, 0.51); left: 815px; top: 255px;"></div><div class="ball" style="width: 25px; height: 25px; background: rgba(206, 132, 195, 0.77); left: 138px; top: 388px;"></div><div class="ball" style="width: 22px; height: 22px; background: rgba(187, 136, 248, 0.61); left: 465px; top: 54px;"></div><div class="ball" style="width: 6px; height: 6px; background: rgba(144, 113, 117, 0.36); left: 906px; top: 307px;"></div><div class="ball" style="width: 12px; height: 12px; background: rgba(174, 175, 119, 0.63); left: 314px; top: 87px;"></div><div class="ball" style="width: 26px; height: 26px; background: rgba(167, 205, 252, 0.57); left: 281px; top: 194px;"></div><div class="ball" style="width: 9px; height: 9px; background: rgba(228, 202, 239, 0.39); left: 135px; top: 86px;"></div><div class="ball" style="width: 17px; height: 17px; background: rgba(136, 242, 119, 0.86); left: 110px; top: 14px;"></div><div class="ball" style="width: 17px; height: 17px; background: rgba(212, 170, 168, 0.36); left: 37px; top: 254px;"></div><div class="ball" style="width: 11px; height: 11px; background: rgba(111, 247, 157, 0.32); left: 446px; top: 231px;"></div><div class="ball" style="width: 19px; height: 19px; background: rgba(144, 126, 246, 0.74); left: 515px; top: 102px;"></div><div class="ball" style="width: 10px; height: 10px; background: rgba(182, 131, 129, 0.62); left: 226px; top: 284px;"></div><div class="ball" style="width: 10px; height: 10px; background: rgba(142, 109, 170, 0.52); left: 822px; top: 31px;"></div><div class="ball" style="width: 17px; height: 17px; background: rgba(178, 228, 170, 0.86); left: 282px; top: 433px;"></div><div class="ball" style="width: 30px; height: 30px; background: rgba(126, 104, 196, 0.54); left: 262px; top: 167px;"></div><div class="ball" style="width: 7px; height: 7px; background: rgba(211, 104, 169, 0.49); left: 171px; top: 490px;"></div><div class="ball" style="width: 22px; height: 22px; background: rgba(191, 195, 204, 0.47); left: 682px; top: 22px;"></div><div class="ball" style="width: 12px; height: 12px; background: rgba(159, 114, 116, 0.56); left: 393px; top: 45px;"></div><div class="ball" style="width: 11px; height: 11px; background: rgba(204, 224, 163, 0.76); left: 50px; top: 21px;"></div><div class="ball" style="width: 8px; height: 8px; background: rgba(106, 135, 162, 0.41); left: 684px; top: 174px;"></div><div class="ball" style="width: 15px; height: 15px; background: rgba(247, 125, 134, 0.73); left: 508px; top: 196px;"></div><div class="ball" style="width: 19px; height: 19px; background: rgba(210, 129, 234, 0.68); left: 649px; top: 280px;"></div><div class="ball" style="width: 7px; height: 7px; background: rgba(154, 253, 170, 0.73); left: 954px; top: 240px;"></div><div class="ball" style="width: 26px; height: 26px; background: rgba(155, 233, 191, 0.83); left: 551px; top: 93px;"></div><div class="ball" style="width: 10px; height: 10px; background: rgba(104, 202, 254, 0.75); left: 536px; top: 149px;"></div><div class="ball" style="width: 18px; height: 18px; background: rgba(249, 124, 138, 0.86); left: 840px; top: 419px;"></div><div class="ball" style="width: 9px; height: 9px; background: rgba(213, 203, 183, 0.72); left: 149px; top: 147px;"></div><div class="ball" style="width: 22px; height: 22px; background: rgba(133, 222, 190, 0.41); left: 217px; top: 179px;"></div><div class="ball" style="width: 16px; height: 16px; background: rgba(147, 111, 191, 0.49); left: 884px; top: 28px;"></div><div class="ball" style="width: 22px; height: 22px; background: rgba(127, 177, 205, 0.46); left: 165px; top: 340px;"></div><div class="ball" style="width: 29px; height: 29px; background: rgba(130, 172, 216, 0.44); left: 765px; top: 415px;"></div><div class="ball" style="width: 17px; height: 17px; background: rgba(250, 116, 154, 0.32); left: 727px; top: 283px;"></div><div class="ball" style="width: 7px; height: 7px; background: rgba(160, 191, 169, 0.46); left: 920px; top: 229px;"></div><div class="ball" style="width: 26px; height: 26px; background: rgba(164, 124, 227, 0.43); left: 195px; top: 175px;"></div><div class="ball" style="width: 9px; height: 9px; background: rgba(165, 232, 160, 0.89); left: 217px; top: 470px;"></div><div class="ball" style="width: 8px; height: 8px; background: rgba(103, 109, 253, 0.53); left: 733px; top: 247px;"></div><div class="ball" style="width: 22px; height: 22px; background: rgba(195, 237, 209, 0.31); left: 38px; top: 291px;"></div><div class="ball" style="width: 6px; height: 6px; background: rgba(172, 142, 144, 0.79); left: 804px; top: 413px;"></div><div class="ball" style="width: 8px; height: 8px; background: rgba(149, 166, 212, 0.49); left: 625px; top: 406px;"></div><div class="ball" style="width: 10px; height: 10px; background: rgba(181, 134, 233, 0.7); left: 778px; top: 38px;"></div><div class="ball" style="width: 16px; height: 16px; background: rgba(210, 102, 120, 0.54); left: 547px; top: 231px;"></div><div class="ball" style="width: 23px; height: 23px; background: rgba(169, 196, 183, 0.61); left: 661px; top: 120px;"></div><div class="ball" style="width: 7px; height: 7px; background: rgba(151, 204, 181, 0.59); left: 25px; top: 78px;"></div><div class="ball" style="width: 19px; height: 19px; background: rgba(198, 137, 216, 0.53); left: 496px; top: 206px;"></div><div class="ball" style="width: 21px; height: 21px; background: rgba(157, 163, 119, 0.68); left: 320px; top: 74px;"></div><div class="ball" style="width: 9px; height: 9px; background: rgba(116, 159, 133, 0.87); left: 400px; top: 343px;"></div><div class="ball" style="width: 19px; height: 19px; background: rgba(190, 252, 143, 0.82); left: 237px; top: 12px;"></div><div class="ball" style="width: 11px; height: 11px; background: rgba(170, 152, 222, 0.35); left: 548px; top: 225px;"></div><div class="ball" style="width: 26px; height: 26px; background: rgba(194, 239, 246, 0.78); left: 600px; top: 143px;"></div><div class="ball" style="width: 12px; height: 12px; background: rgba(131, 234, 193, 0.31); left: 919px; top: 418px;"></div><div class="ball" style="width: 21px; height: 21px; background: rgba(253, 178, 151, 0.75); left: 483px; top: 34px;"></div><div class="ball" style="width: 5px; height: 5px; background: rgba(137, 224, 234, 0.64); left: 726px; top: 247px;"></div><div class="ball" style="width: 18px; height: 18px; background: rgba(171, 155, 196, 0.81); left: 580px; top: 200px;"></div><div class="ball" style="width: 18px; height: 18px; background: rgba(121, 148, 150, 0.51); left: 519px; top: 440px;"></div><div class="ball" style="width: 6px; height: 6px; background: rgba(139, 255, 120, 0.58); left: 1046px; top: 34px;"></div><div class="ball" style="width: 26px; height: 26px; background: rgba(213, 211, 203, 0.4); left: 807px; top: 98px;"></div><div class="ball" style="width: 8px; height: 8px; background: rgba(245, 150, 225, 0.62); left: 405px; top: 259px;"></div><div class="ball" style="width: 12px; height: 12px; background: rgba(149, 177, 241, 0.75); left: 479px; top: 265px;"></div><div class="ball" style="width: 6px; height: 6px; background: rgba(247, 143, 253, 0.35); left: 777px; top: 60px;"></div><div class="ball" style="width: 9px; height: 9px; background: rgba(129, 158, 128, 0.81); left: 288px; top: 371px;"></div>
+
+
+</body></html>
